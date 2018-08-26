@@ -40,13 +40,13 @@ section#score div {
 
 
 
-.furry {
-  background-image: url('../images/furry.png');
+.player {
+  background-image: url('../images/gmoch.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
 }
-.coin {
-  background-image: url('../images/coin.png');
+.ball {
+  background-image: url('../images/football.jpeg');
   background-repeat: no-repeat;
   background-size: cover;
 }

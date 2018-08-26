@@ -1,100 +1,100 @@
-function Furry() {
+function Player() {
     this.x = 0;
     this.y = 0;
     this.direction = 'right';
 }
 
-function Coin() {
+function Ball() {
     this.x = Math.floor(Math.random() * 10);
     this.y = Math.floor(Math.random() * 10);
 }
 
 function Game() {
     this.board = document.querySelectorAll('#board div');
-    this.furry = new Furry();
-    this.coin = new Coin();
+    this.player = new Player();
+    this.ball = new Ball();
     this.score = 0;
     this.index = function(x,y) {
         return x + (y * 10);
     }
-    this.showFurry = function() {
-        this.hideVisibleFurry();
-        this.board[ this.index(this.furry.x,this.furry.y) ].classList.add('furry')
+    this.showPlayer = function() {
+        this.hideVisiblePlayer();
+        this.board[this.index(this.player.x, this.player.y)].classList.add('player')
     }
-    this.showCoin = function() {
-        this.board[ this.index(this.coin.x,this.coin.y) ].classList.add('coin');
+    this.showBall = function() {
+        this.board[this.index(this.ball.x, this.ball.y) ].classList.add('ball');
     }
-    this.hideCoin = function() {    //dodalem wlasna metode
-        this.board[ this.index(this.coin.x,this.coin.y) ].classList.remove('coin');
+    this.hideBall = function() {
+        this.board[this.index(this.ball.x, this.ball.y) ].classList.remove('ball');
     }
     this.startGame = function() {
         var self = this;
         this.idSetInterval = setInterval(function() {
-            self.moveFurry();
+            self.movePlayer();
             }, 250);
     }
-    this.hideVisibleFurry = function() {
-        var presentFurry = document.querySelector('div.furry');
-        if (presentFurry) {     // na samym poczatku dostaje null bo jeszcze nie ma furry na mapie - dodalem wiec sprawdzanie czy istnieje
-            presentFurry.classList.remove('furry');
+    this.hideVisiblePlayer = function() {
+        var presentPlayer = document.querySelector('div.player');
+        if (presentPlayer) {
+            presentPlayer.classList.remove('player');
         }
     }
-    this.turnFurry = function(event) {
+    this.turnPlayer = function(event) {
 
-        switch (event.which) {      // w opisie na stronie te kody są źle przypisane
+        switch (event.which) {
             case 37:
-                this.furry.direction = 'left';
+                this.player.direction = 'left';
                 break;
             case 38:
-                this.furry.direction = 'top';
+                this.player.direction = 'top';
                 break;
             case 39:
-                this.furry.direction = 'right';
+                this.player.direction = 'right';
                 break;
             case 40:
-                this.furry.direction = 'down';
+                this.player.direction = 'down';
                 break;
         }
     }
-    this.moveFurry = function() {
-        if(this.furry.direction === "right") {
-            this.furry.x = this.furry.x + 1;
-        } else if (this.furry.direction === "left") {
-            this.furry.x = this.furry.x - 1;
-        } else if (this.furry.direction === "top") {
-            this.furry.y = this.furry.y - 1;
-        } else if (this.furry.direction === "down") {
-            this.furry.y = this.furry.y + 1;
+    this.movePlayer = function() {
+        if(this.player.direction === "right") {
+            this.player.x = this.player.x + 1;
+        } else if (this.player.direction === "left") {
+            this.player.x = this.player.x - 1;
+        } else if (this.player.direction === "top") {
+            this.player.y = this.player.y - 1;
+        } else if (this.player.direction === "down") {
+            this.player.y = this.player.y + 1;
         };
 
-        this.checkCoinCollision();
+        this.checkBallCollision();
         this.gameOver();
-        this.showFurry();
+        this.showPlayer();
     }
-    this.checkCoinCollision = function() {
-            if (this.furry.x == this.coin.x && this.furry.y == this.coin.y) {
-            this.hideCoin();
+    this.checkBallCollision = function() {
+            if (this.player.x == this.ball.x && this.player.y == this.ball.y) {
+            this.hideBall();
             this.score++;
             document.querySelector('strong').innerText = this.score;
-            this.coin = new Coin();
-            this.showCoin();
+            this.ball = new Ball();
+            this.showBall();
         }
     }
     this.gameOver = function() {
-            if (this.furry.x < 0 || this.furry.x > 9 || this.furry.y < 0 || this.furry.y > 9) {     // problem dotyczy tej linii i linii 22
+            if (this.player.x < 0 || this.player.x > 9 || this.player.y < 0 || this.player.y > 9) {
                 clearInterval(this.idSetInterval);
-                this.hideVisibleFurry();
+                this.hideVisiblePlayer();
                 alert('Game over. Score: ' + this.score);
             }
         }
 }
 
 var newGame = new Game();
-newGame.showFurry();
-newGame.showCoin();
+newGame.showPlayer();
+newGame.showBall();
 newGame.startGame();
 
 document.addEventListener('keydown', function(event) {
-    newGame.turnFurry(event);
+    newGame.turnPlayer(event);
 })
 
