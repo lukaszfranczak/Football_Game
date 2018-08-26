@@ -1,6 +1,6 @@
-# Furry Game
+# Football Game
 
-A browser based game which enables user to steer a furry monster using the keyboard and gather coins.
+A browser based game which enables user to steer a football player using the keyboard and gather scores.
 
 Applied technologies: 
 - Javascript
