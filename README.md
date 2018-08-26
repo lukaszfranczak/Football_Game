@@ -4,7 +4,6 @@ A browser based game which enables user to steer a football player using the key
 
 Applied technologies: 
 - Javascript
-- jQuery
 - HTML 
 - CSS
 
